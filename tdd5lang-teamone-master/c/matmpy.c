@@ -128,7 +128,23 @@ struct t_matrix multiply(struct t_matrix a, struct t_matrix b){
     c.matsize.nrows = a.matsize.nrows;
     c.matsize.ncols = b.matsize.ncols;
     c.values = malloc_matrix(c.matsize);
+
+    // check for "Incomptable Dimensions"
+    if (a.matsize.ncols != b.matsize.nrows) {
+        return EMPTY_MATRIX;
+    }
+
     // TODO: Implement Matrix Multiply
+    for (int i = 0; i < c.matsize.nrows; i++) {
+        for (int j = 0; j < c.matsize.ncols; j++) {
+            int temp = 0;
+            for (int k = 0; k < a.matsize.ncols; k++) {
+                temp += a.values[i][k]* b.values[k][j];
+            }
+            c.values[i][j] = temp;
+        }
+    }
+
     return c;
 }
 

@@ -52,4 +52,24 @@ public class MatrixTest
         Matrix actual = a.multiply(b);
         assertEquals("a.multiply(b) doesn't match expected matrix", expected, actual);
     }
+
+
+    // Test if the matrix multiplication throws an exception when the dimensions are incompatible
+    @Test(expected = IllegalArgumentException.class)
+    public void multiplicationOfCompatibleMatricesShouldNotThrowException() throws IOException, CsvException{
+    Matrix d = Matrix.readFromCsvFile("/opt/data/mat_d.csv"); // 2x4
+    Matrix a = Matrix.readFromCsvFile("/opt/data/mat_a.csv"); // 2x2
+    d.multiply(a); // This should throw an exception
+}
+
+    // Test multiply an NxM matrix with an MxP matrix and get back the NxP matrix product
+    @Test
+    public void D_Multiply_EShouldEqual_F() throws IOException, CsvException{
+        Matrix d = Matrix.readFromCsvFile("/opt/data/mat_d.csv");
+        Matrix e = Matrix.readFromCsvFile("/opt/data/mat_e.csv");
+        Matrix expected = Matrix.readFromCsvFile("/opt/data/mat_f.csv");
+        Matrix actual = d.multiply(e);
+        assertEquals("d.multiply(e) doesn't match expected matrix", expected, actual);
+    }
+
 }

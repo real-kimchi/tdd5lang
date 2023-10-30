@@ -153,8 +153,25 @@ public class Matrix{
      * @return -- result matrix: this * other.
      */
     public Matrix multiply(final Matrix other){
+        // Check if the matrices are compatible for multiplication
+        if (this.nCols != other.nRows) {
+            throw new IllegalArgumentException("Incompatible Dimensions: Cannot multiply matrices.");
+        }
+
         Matrix result = new Matrix(this.nRows, other.nCols);
+        
         // TODO: Implement Matrix-Multiply 
+        for (int i = 0; i < this.nRows; i++) {
+            for (int j = 0; j < other.nCols; j++) {
+                double sum = 0;
+                for (int k = 0; k < this.nCols; k++) {
+                    sum += this.get(i, k) * other.get(k, j);
+                }
+                result.set(i, j, sum);
+            }
+        }
+
+        
         return result;
     }
     
